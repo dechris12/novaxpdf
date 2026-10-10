@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /news.json
+Disallow: /ads.json
+Disallow: /latest.json
+
+Sitemap: https://novaxpdf.vercel.app/sitemap.xml

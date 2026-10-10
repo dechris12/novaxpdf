@@ -1,0 +1,25 @@
+{
+  "_help": "HOW TO USE: each item in the list below becomes a banner at the top of the app (up to 3 at once). Add more items, separated by commas. Fields: id (unique, give every new message a NEW id), text (the message), type (info = blue, warn = orange, success = green), link (optional web address), button (optional button label, needs a link), expires (optional YYYY-MM-DD, banner disappears after that day). Users can dismiss each banner. Remove an item to take it down. build.bat can also add an 'update-x.y.z' banner by itself.",
+  "items": [
+    {
+      "id": "welcome-1",
+      "text": "Welcome to NovaX PDF! Tip: press F11 for full screen and Esc to leave it.",
+      "type": "info",
+      "link": "",
+      "button": "",
+      "expires": "2027-01-31"
+    },
+    {
+      "id": "tip-default-1",
+      "text": "Want PDFs to open here with a double-click? Open Help > Make default PDF app.",
+      "type": "success",
+      "link": "https://novaxpdf.vercel.app",
+      "button": "Open website",
+      "expires": "2027-01-31"
+    }
+  ],
+  "_examples_not_shown": [
+    {"id": "example-warn", "text": "Scheduled maintenance on Friday: updates may be delayed.", "type": "warn", "link": "", "button": "", "expires": "2026-12-31"},
+    {"id": "example-link", "text": "New feature guide is live.", "type": "info", "link": "https://novaxpdf.vercel.app", "button": "Read more", "expires": ""}
+  ]
+}

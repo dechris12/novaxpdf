@@ -1,0 +1,27 @@
+{
+  "_help": "HOW TO USE: change enabled to true to show ads. Each item is a small text card. Fields: id (unique), title (max 40 characters, optional), text (max 140 characters; 60 in the status bar), link (web address opened on click), slots (where it may appear: welcome = start page, sidebar = under the thumbnails, status = bottom bar; leave a slot out to keep the ad out of it). With several items, the app shows one at random per slot and rotates every minute. Users can hide ads for the session. Set enabled to false to switch every ad off.",
+  "enabled": false,
+  "items": [
+    {
+      "id": "demo-everywhere",
+      "title": "Your ad here",
+      "text": "Reach people who read PDFs all day. Shows on the start page, sidebar and status bar.",
+      "link": "https://novaxpdf.vercel.app",
+      "slots": ["welcome", "sidebar", "status"]
+    },
+    {
+      "id": "demo-welcome-only",
+      "title": "Start page only",
+      "text": "This one appears only on the welcome screen.",
+      "link": "https://novaxpdf.vercel.app",
+      "slots": ["welcome"]
+    },
+    {
+      "id": "demo-sidebar-status",
+      "title": "Sidebar and bottom bar",
+      "text": "A short line for the small spaces.",
+      "link": "https://novaxpdf.vercel.app",
+      "slots": ["sidebar", "status"]
+    }
+  ]
+}

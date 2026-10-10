@@ -2,8 +2,8 @@
   "_help": "HOW TO USE: each item in the list below becomes a banner at the top of the app (up to 3 at once). Add more items, separated by commas. Fields: id (unique, give every new message a NEW id), text (the message), type (info = blue, warn = orange, success = green), link (optional web address), button (optional button label, needs a link), expires (optional YYYY-MM-DD, banner disappears after that day). Users can dismiss each banner. Remove an item to take it down. build.bat can also add an 'update-x.y.z' banner by itself.",
   "items": [
     {
-      "id": "update-0.2.0",
-      "text": "NovaX PDF 0.2.0 is out: Improvements and fixes",
+      "id": "update-0.2.1",
+      "text": "NovaX PDF 0.2.1 is out: Fixes: stuck scrolling after undo, movable signatures, default-app popup, two banners max",
       "type": "success",
       "expires": "2026-11-09"
     },

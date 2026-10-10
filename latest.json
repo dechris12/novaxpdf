@@ -1,6 +1,6 @@
 {
-  "version": "0.2.0",
-  "url": "https://github.com/dechris12/novaxpdf/releases/download/v0.2.0/NovaXPDF-Setup.exe",
-  "sha256": "db769631c9e63927cf71fad62cec1d7206f96fc1dd934eb6882b2866dfc9efe8",
-  "notes": "Improvements and fixes"
+  "version": "0.2.1",
+  "url": "https://github.com/dechris12/novaxpdf/releases/download/v0.2.1/NovaXPDF-Setup.exe",
+  "sha256": "d707b3acf35c874ebf088868f83315b0ba477d4e9ca73ef96cc13a4edbac7427",
+  "notes": "Fixes: stuck scrolling after undo, movable signatures, default-app popup, two banners max"
 }

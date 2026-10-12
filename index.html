@@ -12,6 +12,21 @@
 <link rel="canonical" href="https://novaxpdf.vercel.app/">
 <link rel="icon" href="favicon.ico"><link rel="apple-touch-icon" href="logo.png">
 <link rel="stylesheet" href="style.css">
+<style>
+.dlc{margin-left:.35em;white-space:nowrap}
+.dlc[hidden]{display:none}
+.past{margin-top:.6rem;font-size:.92rem}
+.past[hidden]{display:none}
+.past summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:.4em;font-weight:600;user-select:none}
+.past summary::-webkit-details-marker{display:none}
+.past summary::before{content:"";display:inline-block;width:0;height:0;border-left:.42em solid currentColor;border-top:.3em solid transparent;border-bottom:.3em solid transparent;transition:transform .15s ease}
+.past[open] summary::before{transform:rotate(90deg)}
+.past ul{list-style:none;margin:.5rem 0 0;padding:0;max-height:14rem;overflow:auto}
+.past li{display:flex;flex-wrap:wrap;gap:.2rem .8rem;align-items:baseline;padding:.35rem 0;border-top:1px solid rgba(128,128,128,.25)}
+.past li a{font-weight:600}
+.past li span{opacity:.7;font-size:.88em}
+@media (prefers-reduced-motion:reduce){.past summary::before{transition:none}}
+</style>
 <meta property="og:type" content="website"><meta property="og:site_name" content="NovaX PDF">
 <meta property="og:title" content="NovaX PDF - free PDF reader for Windows">
 <meta property="og:description" content="Bright, clear pages. Highlight, draw, sign and search. Free, by Havenova-X.">
@@ -30,7 +45,8 @@
 <h1>PDFs that look like paper should be: white, sharp, easy to read.</h1>
 <p class="lead">NovaX PDF is a free Windows reader for people who read, mark up and sign a lot of PDFs. Drag the slider to see what Very bright does to a dull scan.</p>
 <div class="cta"><a class="btn" id="dl" href="https://github.com/dechris12/novaxpdf/releases/latest/download/NovaXPDF-Setup.exe">Download for Windows</a><a class="btn ghost" href="#install">How to install</a></div>
-<p class="meta">Version <span id="ver">0.2.0</span>, Windows 10 and 11, 64-bit, free.</p>
+<p class="meta">Version <span id="ver">0.2.0</span>, Windows 10 and 11, 64-bit, free.<span class="dlc" id="dlc" hidden>&middot; <b id="dlcount">0</b> downloads</span></p>
+<details class="past" id="past" hidden><summary>Past releases</summary><ul id="pastlist"></ul></details>
 </div>
 <figure class="demo" aria-label="Brightness preview">
 <div class="page" id="page"><h3>Quarterly report</h3><p>Sales rose in every region this quarter, led by steady repeat orders and a strong autumn launch.</p><p>Scanned pages often arrive grey and faint. NovaX PDF lifts the paper to clean white and keeps the text dark and crisp.</p></div>
@@ -65,7 +81,7 @@
 <details><summary>How do updates work?</summary><p>The app checks a few times a day, downloads a new version, verifies its fingerprint and installs it. Windows asks for permission once.</p></details>
 </section>
 </main>
-<footer><div class="wrap"><span>NovaX PDF, made by <b>Havenova-X</b>.</span><span><a href="privacy.html">Privacy</a> &nbsp; <a href="sitemap.xml">Sitemap</a></span></div></footer>
+<footer><div class="wrap"><span>NovaX PDF, made by <b>Havenova-X</b>.</span><span><a href="privacy.html">Privacy</a></span></div></footer>
 <script>
 (function(){
 var p=document.getElementById('page'),b=document.getElementById('bri'),l=document.getElementById('lvl');
@@ -76,6 +92,33 @@ fetch('news.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(fu
  var it=(d.items||[]).slice(0,5);if(!it.length)return;var u=document.getElementById('news');
  it.forEach(function(i){var li=document.createElement('li');li.textContent=i.text;u.appendChild(li)});
  document.getElementById('newsec').hidden=false}).catch(function(){});
+
+/* GitHub download count + past releases */
+var REPO='dechris12/novaxpdf',API='https://api.github.com/repos/'+REPO+'/releases?per_page=100',CK='nx_releases_v1',TTL=15*60*1000;
+function count(r){var n=0;(r.assets||[]).forEach(function(a){n+=a.download_count||0});return n}
+function fmtDate(s){try{return new Date(s).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}catch(e){return''}}
+function render(all){
+ var rels=(all||[]).filter(function(r){return !r.draft});
+ if(!rels.length)return;
+ var total=0;rels.forEach(function(r){total+=count(r)});
+ document.getElementById('dlcount').textContent=total.toLocaleString();
+ document.getElementById('dlc').hidden=false;
+ var old=rels.filter(function(r){return !r.prerelease}).slice(1);
+ if(!old.length)return;
+ var ul=document.getElementById('pastlist');ul.textContent='';
+ old.forEach(function(r){
+  var li=document.createElement('li'),a=document.createElement('a'),s=document.createElement('span');
+  a.href=r.html_url;a.target='_blank';a.rel='noopener';a.textContent=r.name||r.tag_name;
+  var bits=[];if(r.published_at)bits.push(fmtDate(r.published_at));bits.push(count(r).toLocaleString()+' downloads');
+  s.textContent=bits.join(' \u00b7 ');
+  li.appendChild(a);li.appendChild(s);ul.appendChild(li)});
+ document.getElementById('past').hidden=false}
+var cached=null;
+try{var c=JSON.parse(sessionStorage.getItem(CK)||'null');if(c&&Date.now()-c.t<TTL)cached=c.d}catch(e){}
+if(cached){render(cached)}else{
+ fetch(API,{headers:{'Accept':'application/vnd.github+json'}}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
+  try{sessionStorage.setItem(CK,JSON.stringify({t:Date.now(),d:d}))}catch(e){}
+  render(d)}).catch(function(){})}
 })();
 </script>
 </body>
